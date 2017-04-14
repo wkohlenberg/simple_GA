@@ -180,7 +180,7 @@ int main()
     generation++;
     std::cout << "Generation: " << generation
               << "; fitness: " << fitness
-              << "; Fittest inidividu: " << fittest
+              << "; Fittest individu: " << fittest
               << std::endl;
 
     evolve(population);
