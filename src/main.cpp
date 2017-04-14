@@ -9,12 +9,17 @@
 
 std::string solution = "1111000011110000000000001111000011110000111100000000000011110000";
 
+int getSolutionLength(std::string solution)
+{
+  return solution.length();
+}
+
 int getFitness(int *individual)
 {
   int fitness = 0;
 
   // Solution string to array
-  int solutionLength = solution.length();
+  int solutionLength = getSolutionLength(solution);
   int solution_array[solutionLength];
   for (int i = 0; i < solutionLength; i++)
   {
