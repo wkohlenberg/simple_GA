@@ -9,7 +9,7 @@
 
 std::string solution = "1111000011110000000000001111000011110000111100000000000011110000";
 
-int getFitness(int individual[GENE_SIZE])
+int getFitness(int *individual)
 {
   int fitness = 0;
 
@@ -32,7 +32,7 @@ int getFitness(int individual[GENE_SIZE])
   return fitness;
 }
 
-int getFittest(int pop[][GENE_SIZE], int popSize)
+int getFittest(int **pop, int popSize)
 {
   int fittestIndividual = 0;
   for (int i = 0; i < popSize; i++)
@@ -44,14 +44,16 @@ int getFittest(int pop[][GENE_SIZE], int popSize)
   return fittestIndividual;
 }
 
-
-int tournamentSelection(int population[][GENE_SIZE])
+int tournamentSelection(int **population)
 {
   int fittest = 0;
   int individu[TOURNAMENT_SIZE] = {0, 0, 0, 0, 0};
 
-  // Init tournament population
-  int tournamentPop[TOURNAMENT_SIZE][GENE_SIZE];
+  // Initialize tournament population
+  int **tournamentPop = (int **) malloc(TOURNAMENT_SIZE * sizeof(int *));
+  for (int i = 0; i < TOURNAMENT_SIZE; i++)
+    tournamentPop[i] = (int *) malloc(GENE_SIZE * sizeof(int));
+
   for (int i = 0; i < TOURNAMENT_SIZE; i++)
   {
     for (int j = 0; j < GENE_SIZE; j++)
@@ -77,9 +79,10 @@ int tournamentSelection(int population[][GENE_SIZE])
   return individu[fittest];
 }
 
-int crossover(int (&newPop)[POPULATION_SIZE][GENE_SIZE],
-              int pop[POPULATION_SIZE][GENE_SIZE],
-              int index, int tournament1,
+int crossover(int **newPop,
+              int **pop,
+              int index,
+              int tournament1,
               int tournament2)
 {
   for (int i = 0; i < GENE_SIZE; i++)
@@ -100,10 +103,12 @@ int crossover(int (&newPop)[POPULATION_SIZE][GENE_SIZE],
 
 
 // Evolve population
-int evolve(int (&population)[POPULATION_SIZE][GENE_SIZE])
+int evolve(int **population)
 {
-  // Init the new populism
-  int newPop[POPULATION_SIZE][GENE_SIZE];
+  // Initialize the new populism
+  int **newPop = (int **) calloc(POPULATION_SIZE, sizeof(int *));
+  for (int i = 0; i < POPULATION_SIZE; i++)
+    newPop[i] = (int *) calloc(GENE_SIZE, sizeof(int));
 
   // Copy the fittest to the first position
   int fittestIndividual = getFittest(population, POPULATION_SIZE);
@@ -152,7 +157,11 @@ int main()
   int fittest = 0;
   srand(time(NULL));
 
-  int population[POPULATION_SIZE][GENE_SIZE];
+  // Initialize population
+  int **population;
+  population = (int **) malloc(POPULATION_SIZE * sizeof(int *));
+  for (int i = 0; i < POPULATION_SIZE; i++)
+    population[i] = (int *) malloc(GENE_SIZE * sizeof(int));
 
   // Generate population
   for (int pop = 0; pop < POPULATION_SIZE; pop++)
