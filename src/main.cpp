@@ -147,7 +147,11 @@ int evolve(int (&population)[POPULATION_SIZE][GENE_SIZE])
 
 int main()
 {
+  int generation = 0;
+  int fitness = 0;
+  int fittest = 0;
   srand(time(NULL));
+
   int population[POPULATION_SIZE][GENE_SIZE];
 
   // Generate population
@@ -159,18 +163,28 @@ int main()
     }
   }
 
-  int generation = 0;
-  while(getFitness(population[getFittest(population, POPULATION_SIZE)]) < GENE_SIZE)
+  // Calculate the the fitness of the fittest of the population
+  fittest = getFittest(population, POPULATION_SIZE);
+  fitness = getFitness(population[fittest]);
+  while(fitness < GENE_SIZE)
   {
     generation++;
-    std::cout << "Generation: " << generation << "; fitness: " << getFitness(population[getFittest(population, POPULATION_SIZE)]) << "; Fittest inidividu: " << getFittest(population, POPULATION_SIZE) << std::endl;
+    std::cout << "Generation: " << generation
+              << "; fitness: " << fitness
+              << "; Fittest inidividu: " << fittest
+              << std::endl;
+
     evolve(population);
+
+    // Calculate the fitness for the next generation
+    fittest = getFittest(population, POPULATION_SIZE);
+    fitness = getFitness(population[fittest]);
   }
   generation++;
 
   std::cout << "Solution found!" << std::endl;
   std::cout << "Generation: " << generation << std::endl;
-  std::cout << "Fitness: " << getFitness(population[getFittest(population, POPULATION_SIZE)]) << std::endl;
+  std::cout << "Fitness: " << fitness << std::endl;
   std::cout << "Genes: ";
 
   int fittestIndividual = getFittest(population, POPULATION_SIZE);
