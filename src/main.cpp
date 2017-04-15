@@ -3,51 +3,13 @@
 #include <ctime>
 #include <cstring>
 
+#include "fitness.h"
+
 #define POPULATION_SIZE     50
 #define GENE_SIZE           64
 #define TOURNAMENT_SIZE     5
 
-std::string solution = "1111000011110000000000001111000011110000111100000000000011110000";
-
-int getSolutionLength(std::string solution)
-{
-  return solution.length();
-}
-
-int getFitness(int *individual)
-{
-  int fitness = 0;
-
-  // Solution string to array
-  int solutionLength = getSolutionLength(solution);
-  int solution_array[solutionLength];
-  for (int i = 0; i < solutionLength; i++)
-  {
-    solution_array[i] = stoi(solution.substr(i, 1), nullptr, 2);
-  }
-
-  for (int i = 0; (i < GENE_SIZE) && (i < solutionLength); i++)
-  {
-    if (individual[i] == solution_array[i])
-    {
-      fitness++;
-    }
-  }
-
-  return fitness;
-}
-
-int getFittest(int **pop, int popSize)
-{
-  int fittestIndividual = 0;
-  for (int i = 0; i < popSize; i++)
-  {
-    if (getFitness(pop[fittestIndividual]) <= getFitness(pop[i]))
-      fittestIndividual = i;
-  }
-
-  return fittestIndividual;
-}
+FITNESS Fitness;
 
 int tournamentSelection(int **population)
 {
@@ -79,7 +41,7 @@ int tournamentSelection(int **population)
     }
   }
 
-  fittest = getFittest(tournamentPop, TOURNAMENT_SIZE);
+  fittest = Fitness.getFittest(tournamentPop, TOURNAMENT_SIZE);
 
   return individu[fittest];
 }
@@ -116,7 +78,7 @@ int evolve(int **population)
     newPop[i] = (int *) calloc(GENE_SIZE, sizeof(int));
 
   // Copy the fittest to the first position
-  int fittestIndividual = getFittest(population, POPULATION_SIZE);
+  int fittestIndividual = Fitness.getFittest(population, POPULATION_SIZE);
   for (int i = 0; i < GENE_SIZE; i++)
   {
     newPop[0][i] = population[fittestIndividual][i];
@@ -162,6 +124,9 @@ int main()
   int fittest = 0;
   srand(time(NULL));
 
+  // Initialize the solution
+  Fitness.setSolution("1111000011110000000000001111000011110000111100000000000011110000");
+
   // Initialize population
   int **population;
   population = (int **) malloc(POPULATION_SIZE * sizeof(int *));
@@ -178,8 +143,8 @@ int main()
   }
 
   // Calculate the the fitness of the fittest of the population
-  fittest = getFittest(population, POPULATION_SIZE);
-  fitness = getFitness(population[fittest]);
+  fittest = Fitness.getFittest(population, POPULATION_SIZE);
+  fitness = Fitness.getFitness(population[fittest]);
   while(fitness < GENE_SIZE)
   {
     generation++;
@@ -191,8 +156,8 @@ int main()
     evolve(population);
 
     // Calculate the fitness for the next generation
-    fittest = getFittest(population, POPULATION_SIZE);
-    fitness = getFitness(population[fittest]);
+    fittest = Fitness.getFittest(population, POPULATION_SIZE);
+    fitness = Fitness.getFitness(population[fittest]);
   }
   generation++;
 
@@ -201,7 +166,7 @@ int main()
   std::cout << "Fitness: " << fitness << std::endl;
   std::cout << "Genes: ";
 
-  int fittestIndividual = getFittest(population, POPULATION_SIZE);
+  int fittestIndividual = Fitness.getFittest(population, POPULATION_SIZE);
   for (int i = 0; i < GENE_SIZE; i++)
     std::cout << population[fittestIndividual][i];
 
