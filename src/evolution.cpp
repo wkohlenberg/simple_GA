@@ -40,9 +40,8 @@ int EVOLUTION::tournamentSelection(int **population, FITNESS Fitness)
   geneSize = Fitness.getSolutionLength();
 
   // Initialize tournament population
-  int **tournamentPop = (int **) malloc(TOURNAMENT_SIZE * sizeof(int *));
-  for (int i = 0; i < TOURNAMENT_SIZE; i++)
-    tournamentPop[i] = (int *) malloc(geneSize * sizeof(int));
+  POPULATION Population;
+  int **tournamentPop = Population.initializePopulation(TOURNAMENT_SIZE, geneSize, true); // True for calloc use
 
   for (int i = 0; i < TOURNAMENT_SIZE; i++)
   {
@@ -80,10 +79,10 @@ int EVOLUTION::evolve(int **population, FITNESS Fitness)
   // Get gene size
   geneSize = Fitness.getSolutionLength();
 
-  // Initialize the new populism
-  int **newPop = (int **) calloc(POPULATION_SIZE, sizeof(int *));
-  for (int i = 0; i < POPULATION_SIZE; i++)
-    newPop[i] = (int *) calloc(geneSize, sizeof(int));
+  // Initialize the new population
+  POPULATION Population;
+  int **newPop = Population.initializePopulation(POPULATION_SIZE, geneSize);
+
 
   // Copy the fittest to the first position
   int fittestIndividual = Fitness.getFittest(population, POPULATION_SIZE);
