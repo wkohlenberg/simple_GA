@@ -5,10 +5,12 @@
 
 #include "fitness.h"
 #include "evolution.h"
+#include "population.h"
 
 // Class Definitions
 FITNESS Fitness;
 EVOLUTION Evolution;
+POPULATION Population;
 
 int main()
 {
@@ -26,18 +28,8 @@ int main()
 
   // Initialize population
   int **population;
-  population = (int **) malloc(POPULATION_SIZE * sizeof(int *));
-  for (int i = 0; i < POPULATION_SIZE; i++)
-    population[i] = (int *) malloc(geneSize * sizeof(int));
-
-  // Generate population
-  for (int pop = 0; pop < POPULATION_SIZE; pop++)
-  {
-    for (int gene = 0; gene < geneSize; gene++)
-    {
-      population[pop][gene] = rand() % 2;
-    }
-  }
+  population = Population.initializePopulation(POPULATION_SIZE, geneSize);
+  Population.createRandomPopulation(population, POPULATION_SIZE, geneSize);
 
   // Calculate the the fitness of the fittest of the population
   fittest = Fitness.getFittest(population, POPULATION_SIZE);
