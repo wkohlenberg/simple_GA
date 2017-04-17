@@ -2,6 +2,7 @@
 #define EVOLUTION_H
 
 #include "fitness.h"
+#include "population.h"
 
 #define POPULATION_SIZE     50
 #define TOURNAMENT_SIZE     5
