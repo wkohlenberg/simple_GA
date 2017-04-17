@@ -6,13 +6,17 @@
 #include "fitness.h"
 #include "evolution.h"
 
+// Definitions
 #define POPULATION_SIZE     50
 #define GENE_SIZE           64
 #define TOURNAMENT_SIZE     5
 
+// Class Definitions
 FITNESS Fitness;
 EVOLUTION Evolution;
 
+// Function tournament selection
+// Chooses 5 random individuals and selects the fittest
 int tournamentSelection(int **population)
 {
   int fittest = 0;
@@ -49,6 +53,9 @@ int tournamentSelection(int **population)
 }
 
 // Evolve population
+// The fittest of the population is copied to the new generation
+// The others individuals are created by parents
+// Mutate some random genes of the individuals
 int evolve(int **population)
 {
   // Initialize the new populism
@@ -63,7 +70,7 @@ int evolve(int **population)
     newPop[0][i] = population[fittestIndividual][i];
   }
 
-  // Loop tournament
+  // Select parents and let them pair
   for (int index = 0; index < POPULATION_SIZE; index++)
   {
     int firstTournament = tournamentSelection(population);
