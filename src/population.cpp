@@ -24,7 +24,7 @@ int **POPULATION::initializePopulation(int individuals, int genes, bool FILL_ZER
   return population;
 }
 
-int **POPULATION::createRandomPopulation(int **population, int individuals, int genes)
+int POPULATION::createRandomPopulation(int **population, int individuals, int genes)
 {
   // Fill the 2d array with random genes
   for (int pop = 0; pop < individuals; pop++)
@@ -34,5 +34,5 @@ int **POPULATION::createRandomPopulation(int **population, int individuals, int 
       population[pop][gene] = rand() % 2;
     }
   }
-  return 0;
+  return 1;
 }
