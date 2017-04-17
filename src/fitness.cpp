@@ -15,9 +15,9 @@ std::string FITNESS::getSolution()
   return fitnessSolution;
 }
 
-int FITNESS::getSolutionLength(std::string solution)
+int FITNESS::getSolutionLength()
 {
-  return solution.length();
+  return fitnessSolution.length();
 }
 
 int FITNESS::getFitness(int *individual)
@@ -25,7 +25,7 @@ int FITNESS::getFitness(int *individual)
   int fitness = 0;
 
   // Solution string to array
-  int solutionLength = getSolutionLength(getSolution());
+  int solutionLength = getSolutionLength();
   int solution_array[solutionLength];
   for (int i = 0; i < solutionLength; i++)
   {
