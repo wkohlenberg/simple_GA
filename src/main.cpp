@@ -22,7 +22,7 @@ int main()
   Fitness.setSolution("1111000011110000000000001111000011110000111100000000000011110000");
 
   // Get geneSize
-  geneSize = Fitness.getSolutionLength(Fitness.getSolution());
+  geneSize = Fitness.getSolutionLength();
 
   // Initialize population
   int **population;
