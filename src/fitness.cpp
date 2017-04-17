@@ -32,7 +32,6 @@ int FITNESS::getFitness(int *individual)
     solution_array[i] = stoi(fitnessSolution.substr(i, 1), nullptr, 2);
   }
 
-  //for (int i = 0; (i < GENE_SIZE) && (i < solutionLength); i++)
   for (int i = 0; i < solutionLength; i++)
   {
     if (individual[i] == solution_array[i])
