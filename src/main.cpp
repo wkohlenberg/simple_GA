@@ -42,6 +42,7 @@ int main()
   // Calculate the the fitness of the fittest of the population
   fittest = Fitness.getFittest(population, POPULATION_SIZE);
   fitness = Fitness.getFitness(population[fittest]);
+  std::cout << "Gene size: " << geneSize << std::endl;
   while(fitness < geneSize)
   {
     generation++;
