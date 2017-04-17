@@ -29,7 +29,8 @@ int main()
   // Initialize population
   int **population;
   population = Population.initializePopulation(POPULATION_SIZE, geneSize);
-  Population.createRandomPopulation(population, POPULATION_SIZE, geneSize);
+  if (!Population.createRandomPopulation(population, POPULATION_SIZE, geneSize))
+    return 1; // Exit if random population can not be created
 
   // Calculate the the fitness of the fittest of the population
   fittest = Fitness.getFittest(population, POPULATION_SIZE);
