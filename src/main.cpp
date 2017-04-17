@@ -4,12 +4,14 @@
 #include <cstring>
 
 #include "fitness.h"
+#include "evolution.h"
 
 #define POPULATION_SIZE     50
 #define GENE_SIZE           64
 #define TOURNAMENT_SIZE     5
 
 FITNESS Fitness;
+EVOLUTION Evolution;
 
 int tournamentSelection(int **population)
 {
@@ -46,29 +48,6 @@ int tournamentSelection(int **population)
   return individu[fittest];
 }
 
-int crossover(int **newPop,
-              int **pop,
-              int index,
-              int tournament1,
-              int tournament2)
-{
-  for (int i = 0; i < GENE_SIZE; i++)
-  {
-    double random = ((double)rand()/RAND_MAX);
-    if (random <= 0.5)
-    {
-      newPop[index][i] = pop[tournament1][i];
-    }
-    else
-    {
-      newPop[index][i] = pop[tournament2][i];
-    }
-  }
-
-  return 0;
-}
-
-
 // Evolve population
 int evolve(int **population)
 {
@@ -89,7 +68,7 @@ int evolve(int **population)
   {
     int firstTournament = tournamentSelection(population);
     int secondTournament = tournamentSelection(population);
-    crossover(newPop, population, index, firstTournament, secondTournament);
+    Evolution.crossover(newPop, population, index, firstTournament, secondTournament, Fitness);
   }
 
   // Mutate genes
