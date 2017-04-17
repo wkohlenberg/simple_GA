@@ -10,7 +10,7 @@ int EVOLUTION::crossover(int **newPop,
               FITNESS Fitness)
 {
   // Get the number of genes
-  int solutionLength = Fitness.getSolutionLength(Fitness.getSolution());
+  int solutionLength = Fitness.getSolutionLength();
 
   for (int i = 0; i < solutionLength; i++)
   {
@@ -37,7 +37,7 @@ int EVOLUTION::tournamentSelection(int **population, FITNESS Fitness)
   int individu[TOURNAMENT_SIZE] = {0, 0, 0, 0, 0};
 
   // Get gene size
-  geneSize = Fitness.getSolutionLength(Fitness.getSolution());
+  geneSize = Fitness.getSolutionLength();
 
   // Initialize tournament population
   int **tournamentPop = (int **) malloc(TOURNAMENT_SIZE * sizeof(int *));
@@ -78,7 +78,7 @@ int EVOLUTION::evolve(int **population, FITNESS Fitness)
   int geneSize = 0;
 
   // Get gene size
-  geneSize = Fitness.getSolutionLength(Fitness.getSolution());
+  geneSize = Fitness.getSolutionLength();
 
   // Initialize the new populism
   int **newPop = (int **) calloc(POPULATION_SIZE, sizeof(int *));
