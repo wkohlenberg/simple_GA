@@ -10,13 +10,20 @@
 FITNESS Fitness;
 EVOLUTION Evolution;
 
-int main()
+int main(int argc, char *argv[])
 {
   int generation = 0;
   int fitness = 0;
   int fittest = 0;
   int geneSize = 0;
   srand(time(NULL));
+
+  // Check for arguments and print the arguments in the console
+  std::cout << "Number of arguments: " << argc << std::endl;
+  std::cout << "Arguments: ";
+  for (int i = 0; i < argc; i++)
+    std::cout << argv[i] << " ";
+  std::cout << std::endl << std::endl;
 
   // Initialize the solution
   Fitness.setSolution("1111000011110000000000001111000011110000111100000000000011110000");
