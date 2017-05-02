@@ -4,7 +4,6 @@
 #include "fitness.h"
 #include "population.h"
 
-#define POPULATION_SIZE     50
 #define TOURNAMENT_SIZE     5
 
 // Evolution
@@ -17,8 +16,8 @@ public:
                 int tournament1,
                 int tournament2,
                 FITNESS Fitness);
-  int tournamentSelection(int **population, FITNESS Fitness);
-  int evolve(int **population, FITNESS Fitness);
+  int tournamentSelection(int **population, int populationSize, FITNESS Fitness);
+  int evolve(int **population, int populationSize, FITNESS Fitness);
 
 };
 
