@@ -7,3 +7,7 @@
 
 # Text
 *.txt
+
+# Directories
+*bin/
+*output/
