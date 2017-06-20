@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
   Population.populationSize = CMDoptions.populationSize;
 
   // Initialize the solution
-  Fitness.setSolution("1111000011110000000000001111000011110000111100000000000011110000");
+  Fitness.setSolution(CMDoptions.solution);
 
   // Get geneSize
   geneSize = Fitness.getSolutionLength();
