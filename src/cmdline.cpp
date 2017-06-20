@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 
 #include "cmdline.h"
 
@@ -12,14 +11,20 @@ CMDLINE::CMDLINE(int argC, char **argV)
 
 int CMDLINE::help()
 {
-  std::cout << "This is a simple implementation of the genetic algorithm." << std::endl;
-               version();
+  std::cout << "Simple genetic algorithm:\nThis is a simple implementation of the genetic algorithm. The goal is to find " << std::endl;
+  std::cout << "the (optimal) solution. The solution is by default or given by the user. " << std::endl;
+  std::cout << "Normaly, the solution depends on the evolution of individuals of the population." << std::endl;
+  std::cout << "But in this case the evelution of the individuals continiuos until an individual" << std::endl;
+  std::cout << "has the same gene string as the solution. This results in a different number of " << std::endl;
+  std::cout << "generations every time the programm executes." << std::endl << std::endl;
+  std::cout << "Version: 0.1.0.0" << std::endl;
   std::cout << std::endl;
-  std::cout << "Usage: main [OPTIONS]" << std::endl;
+  std::cout << "Usage: genalg [OPTIONS]" << std::endl;
   std::cout << std::endl;
   std::cout << "Options: " << std::endl;
   std::cout << "  --population, -p\tSelect the size of the population [default: 50]." << std::endl;
-  std::cout << "  --genes, -g\t\tSelect the gene size of the individu [default: 64]" << std::endl;
+  std::cout << "  --solution, -s\tSet a solution [default: 1111000011110000000000001111000" << std::endl;
+  std::cout << "\t\t\t011110000111100000000000011110000]" << std::endl;
   std::cout << "  --version, -v\t\tDisplay the software version" << std::endl;
   std::cout << "  --help, -h, -?\tShow help" << std::endl;
 
@@ -30,7 +35,11 @@ int CMDLINE::help()
 
 int CMDLINE::version()
 {
-  std::cout << "Version: no version numbering yet." << std::endl;
+  std::cout << "Simple genetic algorithm" << std::endl;
+  std::cout << "Version: 0.1.0.0" << std::endl;
+
+  exit(0);
+
   return 0;
 }
 
@@ -38,7 +47,8 @@ int CMDLINE::parseCommandLine(cmdoptions_t *CMDoptions)
 {
   // Set default values for cmd options
   CMDoptions->populationSize = 50;
-  CMDoptions->geneSize = 64;
+  strcpy(CMDoptions->solution,
+          "1111000011110000000000001111000011110000111100000000000011110000");
 
   for (int i = 0; i < argc; i++)
   {
@@ -60,11 +70,11 @@ int CMDLINE::parseCommandLine(cmdoptions_t *CMDoptions)
       // give a population size (the number of individuals)
       sscanf(argv[++i], "%d", &CMDoptions->populationSize);
     }
-    else if ((strcmp(option, "--genes") == 0)
-          || (strcmp(option, "-g") == 0))
+    else if ((strcmp(option, "--solution") == 0)
+          || (strcmp(option, "-s") == 0))
     {
-      // Give a gene size of the individual
-      sscanf(argv[++i], "%d", &CMDoptions->geneSize);
+      // Give the solution
+      strcpy(CMDoptions->solution, argv[++i]);
     }
   }
 
