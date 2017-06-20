@@ -12,7 +12,7 @@ CXXFLAGS := -std=c++11
 main:
 	mkdir -p $(BINDIR)
 	mkdir -p $(OUTDIR)
-	$(CXX) $(SRCDIR)/main.cpp $(SRCDIR)/cmdline.cpp $(SRCDIR)/evolution.cpp $(SRCDIR)/fitness.cpp $(SRCDIR)/population.cpp $(LFLAGS) -o $(BINDIR)/main -Wall $(CXXFLAGS)
+	$(CXX) $(SRCDIR)/main.cpp $(SRCDIR)/cmdline.cpp $(SRCDIR)/evolution.cpp $(SRCDIR)/fitness.cpp $(SRCDIR)/population.cpp $(LFLAGS) -o $(BINDIR)/genalg -Wall $(CXXFLAGS)
 
 clean:
-	rm -rf $(BINDIR)/main $(OUTDIR)/
+	rm -rf $(BINDIR)/genalg $(OUTDIR)/
