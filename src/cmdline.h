@@ -1,9 +1,11 @@
 #ifndef CMDLINE_H
 #define CMDLINE_H
 
+#include <cstring>
+
 typedef struct cmdOptions{
   int populationSize;
-  int geneSize;
+  char solution[];
 }cmdoptions_t;
 
 class CMDLINE
